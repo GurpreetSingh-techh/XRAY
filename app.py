@@ -48,16 +48,20 @@ print("Loading Pneumonia Detection Model...")
 
 # The model was saved with a newer Keras. Older Keras does not know the
 # "quantization_config" setting, so we make Dense ignore it.
-class PatchedDense(tf.keras.layers.Dense):
+# (This patch works with any Keras version.)
+_original_dense_init = tf.keras.layers.Dense.__init__
 
-    def __init__(self, *args, quantization_config=None, **kwargs):
-        super().__init__(*args, **kwargs)
+
+def _patched_dense_init(self, *args, quantization_config=None, **kwargs):
+    _original_dense_init(self, *args, **kwargs)
+
+
+tf.keras.layers.Dense.__init__ = _patched_dense_init
 
 
 model = tf.keras.models.load_model(
     MODEL_PATH,
-    compile=False,
-    custom_objects={"Dense": PatchedDense}
+    compile=False
 )
 
 print("Model loaded successfully!")
