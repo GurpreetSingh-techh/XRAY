@@ -1,0 +1,6 @@
+Flask==3.1.0
+tensorflow-cpu==2.20.0
+numpy
+Pillow
+huggingface_hub
+waitress

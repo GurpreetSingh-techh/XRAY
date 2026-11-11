@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>ClarityX | AI Chest X-Ray Analysis</title>
+
+    <meta name="description"
+          content="ClarityX is an educational AI chest X-ray classification project using deep learning.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="container nav-content">
+
+            <a href="#" class="logo">
+
+                <span class="logo-icon">✚</span>
+
+                Clarity<span>X</span>
+
+            </a>
+
+
+            <div class="nav-links">
+
+                <a href="#analyzer">Analyzer</a>
+
+                <a href="#technology">Technology</a>
+
+                <a href="#dataset">Dataset</a>
+
+                <a href="#about">About</a>
+
+            </div>
+
+
+            <a href="#analyzer" class="nav-button">
+
+                Try Analysis →
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- HERO SECTION -->
+
+    <section class="hero">
+
+        <div class="container hero-grid">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+
+                    <span class="status-dot"></span>
+
+                    AI-POWERED IMAGE CLASSIFICATION
+
+                </div>
+
+
+                <h1>
+
+                    A clearer perspective on
+
+                    <span>chest X-ray analysis.</span>
+
+                </h1>
+
+
+                <p>
+
+                    Explore an educational deep-learning system
+                    designed to classify chest X-ray images into
+                    Normal and Pneumonia categories using a trained
+                    DenseNet121 model.
+
+                </p>
+
+
+                <div class="hero-buttons">
+
+                    <a href="#analyzer" class="primary-button">
+
+                        Analyze an X-ray →
+
+                    </a>
+
+                    <a href="#technology" class="secondary-button">
+
+                        Explore the technology
+
+                    </a>
+
+                </div>
+
+
+                <div class="hero-note">
+
+                    <span>✦</span>
+
+                    AI research project · Educational use only
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-visual">
+
+                <div class="visual-glow"></div>
+
+                <div class="xray-card">
+
+                    <div class="xray-top">
+
+                        <span>CHEST RADIOGRAPH</span>
+
+                        <span>AI VIEW</span>
+
+                    </div>
+
+
+                    <div class="xray-placeholder">
+
+                        <div class="lung lung-left"></div>
+
+                        <div class="lung lung-right"></div>
+
+                        <div class="spine"></div>
+
+                        <div class="rib rib-1"></div>
+
+                        <div class="rib rib-2"></div>
+
+                        <div class="rib rib-3"></div>
+
+                        <div class="rib rib-4"></div>
+
+                        <div class="rib rib-5"></div>
+
+                    </div>
+
+
+                    <div class="xray-bottom">
+
+                        <div>
+
+                            <small>MODEL</small>
+
+                            <strong>DenseNet121</strong>
+
+                        </div>
+
+                        <div>
+
+                            <small>TASK</small>
+
+                            <strong>Binary Classification</strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- NOTICE BAR -->
+
+    <section class="notice-section">
+
+        <div class="container notice">
+
+            <span class="notice-icon">ⓘ</span>
+
+            <p>
+
+                <strong>Research demonstration:</strong>
+
+                ClarityX is not a medical device and does not
+                provide a clinical diagnosis. Always consult
+                a qualified healthcare professional.
+
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ANALYZER -->
+
+    <section class="analyzer-section" id="analyzer">
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <span class="section-label">IMAGE ANALYSIS</span>
+
+                <h2>Upload a chest X-ray</h2>
+
+                <p>
+
+                    Submit a clear chest radiograph to see how
+                    the trained AI model classifies the image.
+
+                </p>
+
+            </div>
+
+
+            <div class="analyzer-grid">
+
+
+                <!-- UPLOAD CARD -->
+
+                <div class="upload-card">
+
+                    <div class="card-heading">
+
+                        <div>
+
+                            <span class="card-number">01</span>
+
+                            <h3>Upload your image</h3>
+
+                        </div>
+
+                        <span class="format-label">JPG / PNG</span>
+
+                    </div>
+
+
+                    <div class="upload-area" id="dropArea">
+
+                        <input type="file"
+                               id="imageInput"
+                               accept=".jpg,.jpeg,.png,image/jpeg,image/png"
+                               hidden>
+
+
+                        <div id="uploadContent">
+
+                            <div class="upload-icon">
+
+                                ↑
+
+                            </div>
+
+
+                            <h3>Drag & drop your X-ray</h3>
+
+                            <p>or click below to browse files</p>
+
+
+                            <button type="button"
+                                    id="browseButton"
+                                    class="browse-button">
+
+                                Browse image
+
+                            </button>
+
+
+                            <small>
+
+                                Maximum file size: 10 MB
+
+                            </small>
+
+                        </div>
+
+
+                        <div id="previewContainer" class="preview-container hidden">
+
+                            <img id="previewImage"
+                                 alt="Uploaded chest X-ray preview">
+
+                            <div class="preview-details">
+
+                                <strong id="fileName"></strong>
+
+                                <button id="removeImage"
+                                        type="button">
+
+                                    Remove image
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="upload-guidelines">
+
+                        <h4>Image guidelines</h4>
+
+                        <ul>
+
+                            <li>Use a genuine chest X-ray radiograph.</li>
+
+                            <li>Prefer a clear frontal chest view.</li>
+
+                            <li>Ensure the lungs are visible.</li>
+
+                            <li>Avoid screenshots, photographs of screens,
+                                and heavily cropped images.</li>
+
+                            <li>Avoid images with excessive blur or
+                                obstruction.</li>
+
+                        </ul>
+
+                    </div>
+
+
+                    <button id="analyzeButton"
+                            class="analyze-button"
+                            disabled>
+
+                        Analyze X-ray
+
+                        <span>→</span>
+
+                    </button>
+
+
+                    <p id="loadingText" class="loading-text hidden">
+
+                        Processing image with the AI model...
+
+                    </p>
+
+
+                    <p id="errorMessage" class="error-message hidden"></p>
+
+                </div>
+
+
+
+                <!-- RESULT CARD -->
+
+                <div class="result-card">
+
+                    <div class="card-heading">
+
+                        <div>
+
+                            <span class="card-number">02</span>
+
+                            <h3>Analysis results</h3>
+
+                        </div>
+
+                        <span class="result-label">MODEL OUTPUT</span>
+
+                    </div>
+
+
+                    <div id="emptyResult" class="empty-result">
+
+                        <div class="empty-icon">
+
+                            ✚
+
+                        </div>
+
+                        <h3>Your results will appear here</h3>
+
+                        <p>
+
+                            Upload a chest X-ray and click
+                            "Analyze X-ray" to view the model output.
+
+                        </p>
+
+                    </div>
+
+
+
+                    <div id="resultContent" class="hidden">
+
+                        <div class="result-status" id="resultStatus">
+
+                            <span class="result-status-dot"></span>
+
+                            <span id="predictionText"></span>
+
+                        </div>
+
+
+                        <h2 id="resultTitle"></h2>
+
+                        <p id="resultDescription"></p>
+
+
+                        <div class="score-heading">
+
+                            <h4>Model output scores</h4>
+
+                            <span>Percentage</span>
+
+                        </div>
+
+
+                        <div class="score-item">
+
+                            <div class="score-info">
+
+                                <span>Normal</span>
+
+                                <strong id="normalScore">0%</strong>
+
+                            </div>
+
+                            <div class="progress-track">
+
+                                <div id="normalBar"
+                                     class="progress-fill normal-fill">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="score-item">
+
+                            <div class="score-info">
+
+                                <span>Pneumonia</span>
+
+                                <strong id="pneumoniaScore">0%</strong>
+
+                            </div>
+
+                            <div class="progress-track">
+
+                                <div id="pneumoniaBar"
+                                     class="progress-fill pneumonia-fill">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="result-explanation">
+
+                            <strong>How to interpret this result</strong>
+
+                            <p>
+
+                                These percentages represent the model's
+                                output scores for the two classes.
+                                They are not confirmed disease probabilities
+                                and should not be interpreted as a diagnosis.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- GRAD-CAM -->
+
+            <div id="gradcamSection" class="gradcam-section hidden">
+
+                <div class="gradcam-heading">
+
+                    <div>
+
+                        <span class="section-label">EXPLAINABLE AI</span>
+
+                        <h2>Visual explanation with Grad-CAM</h2>
+
+                        <p>
+
+                            A heatmap showing image regions that
+                            influenced the model's classification.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="gradcam-card">
+
+                    <div class="gradcam-image-box">
+
+                        <img id="gradcamImage"
+                             alt="Grad-CAM heatmap overlay">
+
+                    </div>
+
+
+                    <div class="gradcam-description">
+
+                        <h3>Understanding the heatmap</h3>
+
+                        <p>
+
+                            Grad-CAM (Gradient-weighted Class
+                            Activation Mapping) uses gradients
+                            from the model's convolutional layers
+                            to create a visual explanation.
+
+                        </p>
+
+
+                        <div class="heat-legend">
+
+                            <span class="heat-red"></span>
+
+                            <p>Warmer colours generally indicate
+                               stronger influence on the model's output.</p>
+
+                        </div>
+
+
+                        <div class="heat-legend">
+
+                            <span class="heat-blue"></span>
+
+                            <p>Cooler colours generally indicate
+                               lower relative influence.</p>
+
+                        </div>
+
+
+                        <div class="gradcam-warning">
+
+                            Important: The heatmap is not a
+                            medical lesion detector. Highlighted
+                            areas do not prove the presence or
+                            absence of pneumonia.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- HOW IT WORKS -->
+
+    <section class="workflow-section" id="technology">
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <span class="section-label">THE PROCESS</span>
+
+                <h2>How ClarityX works</h2>
+
+                <p>
+
+                    From image upload to AI classification,
+                    the system follows a simple deep-learning pipeline.
+
+                </p>
+
+            </div>
+
+
+            <div class="workflow-grid">
+
+                <div class="workflow-card">
+
+                    <div class="workflow-icon">01</div>
+
+                    <h3>Image upload</h3>
+
+                    <p>
+
+                        The user uploads a chest X-ray image
+                        through the website.
+
+                    </p>
+
+                </div>
+
+
+                <div class="workflow-card">
+
+                    <div class="workflow-icon">02</div>
+
+                    <h3>Preprocessing</h3>
+
+                    <p>
+
+                        The image is converted to RGB and resized
+                        to 224 × 224 pixels before model inference.
+
+                    </p>
+
+                </div>
+
+
+                <div class="workflow-card">
+
+                    <div class="workflow-icon">03</div>
+
+                    <h3>Deep learning</h3>
+
+                    <p>
+
+                        DenseNet121 processes image features
+                        and produces classification scores.
+
+                    </p>
+
+                </div>
+
+
+                <div class="workflow-card">
+
+                    <div class="workflow-icon">04</div>
+
+                    <h3>Visual explanation</h3>
+
+                    <p>
+
+                        Grad-CAM attempts to highlight regions
+                        that influenced the model's output.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- MODEL INFORMATION -->
+
+    <section class="model-section">
+
+        <div class="container model-grid">
+
+            <div class="model-content">
+
+                <span class="section-label">MODEL ARCHITECTURE</span>
+
+                <h2>Powered by DenseNet121</h2>
+
+                <p>
+
+                    ClarityX uses DenseNet121, a convolutional
+                    neural network architecture developed for
+                    image recognition tasks.
+
+                </p>
+
+
+                <p>
+
+                    DenseNet connects each layer to subsequent
+                    layers through feature reuse. This allows
+                    the network to use information learned
+                    at different depths of the architecture.
+
+                </p>
+
+
+                <p>
+
+                    The model uses transfer learning from
+                    pretrained image-recognition weights,
+                    followed by training and fine-tuning
+                    for the two chest X-ray classes.
+
+                </p>
+
+
+                <div class="model-tags">
+
+                    <span>DenseNet121</span>
+
+                    <span>TensorFlow / Keras</span>
+
+                    <span>Transfer Learning</span>
+
+                    <span>Grad-CAM</span>
+
+                </div>
+
+            </div>
+
+
+            <div class="model-visual">
+
+                <div class="network-box">
+
+                    <div class="network-circle">CNN</div>
+
+                    <div class="network-lines"></div>
+
+                    <div class="network-nodes">
+
+                        <span></span>
+
+                        <span></span>
+
+                        <span></span>
+
+                        <span></span>
+
+                        <span></span>
+
+                        <span></span>
+
+                    </div>
+
+                    <h3>DenseNet121</h3>
+
+                    <p>Convolutional feature extraction</p>
+
+                    <div class="network-output">
+
+                        <span>NORMAL</span>
+
+                        <span>PNEUMONIA</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- DATASET -->
+
+    <section class="dataset-section" id="dataset">
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <span class="section-label">TRAINING DATA</span>
+
+                <h2>Built using public research datasets</h2>
+
+                <p>
+
+                    The model was developed using publicly
+                    available chest X-ray image data.
+
+                </p>
+
+            </div>
+
+
+            <div class="dataset-card">
+
+                <div class="dataset-main">
+
+                    <div class="dataset-icon">✚</div>
+
+                    <div>
+
+                        <span class="dataset-source">PRIMARY DATA SOURCE</span>
+
+                        <h3>Chest X-Ray Images (Pneumonia)</h3>
+
+                        <p>
+
+                            Paul Mooney's Kaggle dataset,
+                            based on the chest X-ray collection
+                            associated with the Kermany et al. research.
+
+                        </p>
+
+                        <a href="https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia"
+                           target="_blank"
+                           rel="noopener noreferrer">
+
+                            View Kaggle dataset →
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dataset-stats">
+
+                    <div>
+
+                        <strong>5,863</strong>
+
+                        <span>Total images in the dataset</span>
+
+                    </div>
+
+                    <div>
+
+                        <strong>2</strong>
+
+                        <span>Classification categories</span>
+
+                    </div>
+
+                    <div>
+
+                        <strong>224 × 224</strong>
+
+                        <span>Model input dimensions</span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dataset-classes">
+
+                    <div class="class-box">
+
+                        <span class="class-dot normal-dot"></span>
+
+                        <div>
+
+                            <strong>NORMAL</strong>
+
+                            <p>Chest X-rays labelled as normal.</p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="class-box">
+
+                        <span class="class-dot pneumonia-dot"></span>
+
+                        <div>
+
+                            <strong>PNEUMONIA</strong>
+
+                            <p>Chest X-rays labelled as pneumonia.</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dataset-note">
+
+                    Dataset note: The original dataset contains
+                    5,216 training images, 624 test images and
+                    16 validation images. The dataset is
+                    imbalanced, with more pneumonia images
+                    than normal images.
+
+                </div>
+
+            </div>
+
+
+            <div class="additional-dataset">
+
+                <h3>Additional normal-image data</h3>
+
+                <p>
+
+                    The project also used normal chest X-ray
+                    images selected from the Tuberculosis
+                    Chest X-ray dataset. These images were
+                    selected from its Normal category.
+
+                </p>
+
+                <a href="https://www.kaggle.com/datasets/tawsifurrahman/tuberculosis-tb-chest-xray-dataset"
+                   target="_blank"
+                   rel="noopener noreferrer">
+
+                    View additional dataset →
+
+                </a>
+
+                <p class="dataset-note">
+
+                    Only the selected Normal images were used
+                    from this additional source. This does not
+                    mean the model was trained to detect
+                    tuberculosis.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- TRAINING INFORMATION -->
+
+    <section class="training-section">
+
+        <div class="container">
+
+            <div class="section-heading">
+
+                <span class="section-label">MODEL DEVELOPMENT</span>
+
+                <h2>How the model was trained</h2>
+
+                <p>
+
+                    A transfer-learning approach was used
+                    to adapt a pretrained neural network
+                    to chest X-ray classification.
+
+                </p>
+
+            </div>
+
+
+            <div class="training-steps">
+
+                <div class="training-step">
+
+                    <span>01</span>
+
+                    <div>
+
+                        <h3>Data collection</h3>
+
+                        <p>
+
+                            Chest X-ray images were collected
+                            from the selected public Kaggle datasets.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="training-step">
+
+                    <span>02</span>
+
+                    <div>
+
+                        <h3>Image preprocessing</h3>
+
+                        <p>
+
+                            Images were resized to the required
+                            model input dimensions and prepared
+                            for deep-learning training.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="training-step">
+
+                    <span>03</span>
+
+                    <div>
+
+                        <h3>Transfer learning</h3>
+
+                        <p>
+
+                            A pretrained DenseNet121 architecture
+                            was adapted to classify Normal and
+                            Pneumonia chest X-ray images.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="training-step">
+
+                    <span>04</span>
+
+                    <div>
+
+                        <h3>Fine-tuning and evaluation</h3>
+
+                        <p>
+
+                            Selected network layers were
+                            fine-tuned to improve performance
+                            on the target image classification task.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="training-step">
+
+                    <span>05</span>
+
+                    <div>
+
+                        <h3>Model saving</h3>
+
+                        <p>
+
+                            The trained Keras model was saved
+                            and integrated into a Flask
+                            web application for image inference.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- LIMITATIONS -->
+
+    <section class="limitations-section" id="about">
+
+        <div class="container">
+
+            <div class="limitations-card">
+
+                <div class="limitations-icon">ⓘ</div>
+
+                <div>
+
+                    <span class="section-label">RESPONSIBLE AI</span>
+
+                    <h2>Important limitations</h2>
+
+                    <p>
+
+                        ClarityX is an educational AI/ML
+                        demonstration. It has not been
+                        clinically validated and must not
+                        be used to diagnose, treat, or rule
+                        out pneumonia.
+
+                    </p>
+
+                    <ul>
+
+                        <li>
+
+                            The model is trained on selected
+                            public datasets and may not
+                            generalize to all hospitals,
+                            equipment or patient populations.
+
+                        </li>
+
+                        <li>
+
+                            The original Kaggle dataset
+                            primarily contains chest X-rays
+                            from children aged 1–5 years.
+
+                        </li>
+
+                        <li>
+
+                            Image quality, positioning,
+                            contrast and other differences
+                            can affect predictions.
+
+                        </li>
+
+                        <li>
+
+                            A Normal result does not
+                            guarantee the absence of disease.
+
+                        </li>
+
+                        <li>
+
+                            A Pneumonia result is not
+                            a confirmed medical diagnosis.
+
+                        </li>
+
+                    </ul>
+
+                    <strong>
+
+                        Always consult a qualified
+                        medical professional for
+                        interpretation of chest X-rays.
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <div class="container footer-content">
+
+            <div>
+
+                <a href="#" class="logo footer-logo">
+
+                    <span class="logo-icon">✚</span>
+
+                    Clarity<span>X</span>
+
+                </a>
+
+                <p>
+
+                    An educational deep-learning project
+                    exploring chest X-ray image classification.
+
+                </p>
+
+            </div>
+
+
+            <div class="footer-links">
+
+                <a href="#analyzer">Analyzer</a>
+
+                <a href="#technology">Technology</a>
+
+                <a href="#dataset">Dataset</a>
+
+                <a href="#about">Limitations</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="container footer-bottom">
+
+            <p>
+
+                © 2026 ClarityX. Educational AI project.
+
+            </p>
+
+            <p>
+
+                Not intended for clinical use.
+
+            </p>
+
+        </div>
+
+    </footer>
+
+
+
+    <script src="{{ url_for('static', filename='script.js', v=2) }}"></script>
+
+</body>
+
+</html>
