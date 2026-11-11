@@ -46,9 +46,18 @@ MODEL_PATH = hf_hub_download(
 
 print("Loading Pneumonia Detection Model...")
 
+# The model was saved with a newer Keras. Older Keras does not know the
+# "quantization_config" setting, so we make Dense ignore it.
+class PatchedDense(tf.keras.layers.Dense):
+
+    def __init__(self, *args, quantization_config=None, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
 model = tf.keras.models.load_model(
     MODEL_PATH,
-    compile=False
+    compile=False,
+    custom_objects={"Dense": PatchedDense}
 )
 
 print("Model loaded successfully!")
